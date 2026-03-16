@@ -1,2 +1,2 @@
-# Evoface-Recognization
-Face Recognization
+# Evoface-Recognition
+Face Recognition
