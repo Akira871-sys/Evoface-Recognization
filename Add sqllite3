@@ -1,0 +1,51 @@
+import cv2
+import face_recognition
+import numpy as np
+import sqlite3
+from datetime import datetime, timedelta
+
+# --- 1. 初始化資料庫 ---
+def init_db():
+    conn = sqlite3.connect('attendance.db')
+    cursor = conn.cursor()
+    # 建立打卡紀錄表
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            timestamp DATETIME NOT NULL,
+            status TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+# --- 2. 紀錄打卡到資料庫 ---
+def log_attendance(name):
+    conn = sqlite3.connect('attendance.db')
+    cursor = conn.cursor()
+    
+    # 檢查該員工最後一筆紀錄，避免短時間內重複打卡（例如 5 分鐘內）
+    five_minutes_ago = datetime.now() - timedelta(minutes=5)
+    cursor.execute("SELECT timestamp FROM logs WHERE name = ? AND timestamp > ? ORDER BY timestamp DESC LIMIT 1", 
+                   (name, five_minutes_ago))
+    last_log = cursor.fetchone()
+
+    if last_log is None:
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # 簡單邏輯：中午 12 點前算上班，之後算下班 (你可根據需求修改)
+        status = "Check-in" if datetime.now().hour < 12 else "Check-out"
+        
+        cursor.execute("INSERT INTO logs (name, timestamp, status) VALUES (?, ?, ?)", (name, now, status))
+        conn.commit()
+        print(f"✅ 成功為 {name} 紀錄: {status} ({now})")
+    
+    conn.close()
+
+# --- 3. 主程式邏輯 (結合 OpenCV) ---
+init_db()
+# (此處省略載入照片的步驟，請參考上一則回覆的 known_face_encodings)
+
+# 假設我們已經在迴圈中辨識出名字為 name
+# if name != "Unknown":
+#     log_attendance(name)
