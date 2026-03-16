@@ -1,0 +1,13 @@
+def view_logs():
+    conn = sqlite3.connect('attendance.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM logs ORDER BY timestamp DESC")
+    rows = cursor.fetchall()
+    
+    print("\n--- 員工打卡報表 ---")
+    for row in rows:
+        print(f"ID: {row[0]} | 姓名: {row[1]} | 時間: {row[2]} | 狀態: {row[3]}")
+    conn.close()
+
+# 呼叫此函數即可印出所有紀錄
+# view_logs()
