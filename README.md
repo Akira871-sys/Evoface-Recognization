@@ -1,5 +1,6 @@
-＃🏢 AI 人臉辨識公司打卡系統 (Face Recognition Attendance System)
+🏢 AI 人臉辨識公司打卡系統 (Face Recognition Attendance System)
 這是一個基於 Python 與 OpenCV 開發的自動化打卡系統，旨在透過生物辨識技術簡化公司考勤流程，並將數據結構化存儲於 SQLite 資料庫。
+---
 
 🚀 主要功能 (Key Features)
 即時人臉偵測與辨識：採用 face_recognition 演算法，支援高準確度的即時比對。
@@ -11,9 +12,10 @@
 本地資料庫管理：整合 SQLite，無需安裝大型資料庫軟體即可運行。
 
 報表匯出功能：支援一鍵將打卡紀錄印出或匯出至終端機查看。
+---
 
 📂 專案結構 (Project Structure)
-Plaintext
+<pre> 
 .
 ├── main.py                # 系統執行主程式 (OpenCV 邏輯)
 ├── database_manager.py    # 資料庫初始化與讀寫邏輯
@@ -23,6 +25,10 @@ Plaintext
 │   └── employee_B.jpg
 ├── requirements.txt       # 專案依賴套件清單
 └── README.md              # 專案說明文件
+</pre>
+
+---
+
 🖥️ UI 說明 (UI Overview)
 本系統目前以 OpenCV 視窗 作為主要互動介面：
 
@@ -41,6 +47,7 @@ Plaintext
 q：安全關閉程式並釋放攝影機。
 
 r：在終端機印出所有歷史打卡紀錄報表。
+---
 
 ⚙️ 工作流程 (Workflow)
 初始化：程式啟動，載入 known_faces/ 資料夾下的特徵點。
@@ -52,6 +59,7 @@ r：在終端機印出所有歷史打卡紀錄報表。
 驗證：若信心值達標，進入資料庫寫入邏輯。
 
 儲存：檢查是否符合打卡時間間隔，通過後寫入 timestamp。
+---
 
 ❓ 常見問題 (FAQ)
 Q1: 辨識速度太慢怎麼辦？
