@@ -1,4 +1,4 @@
-🏢 AI 人臉辨識公司打卡系統 (Face Recognition Attendance System)
+＃🏢 AI 人臉辨識公司打卡系統 (Face Recognition Attendance System)
 這是一個基於 Python 與 OpenCV 開發的自動化打卡系統，旨在透過生物辨識技術簡化公司考勤流程，並將數據結構化存儲於 SQLite 資料庫。
 
 🚀 主要功能 (Key Features)
